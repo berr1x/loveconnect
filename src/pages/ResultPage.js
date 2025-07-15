@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react';
 const ResultPage = () => {
   const navigate = useNavigate();
   const [result, setResult] = useState(null);
+  const [shareDisabled, setShareDisabled] = useState(false);
+  const [newMatchDisabled, setNewMatchDisabled] = useState(false);
 
   useEffect(() => {
     const data = localStorage.getItem('compatibilityResult');
@@ -23,6 +25,8 @@ const ResultPage = () => {
   const { percentage, matches, bottomText } = result;
 
   const handleShare = () => {
+    if (shareDisabled) return;
+    setShareDisabled(true);
     if (window.Telegram && window.Telegram.WebApp && typeof window.Telegram.WebApp.openTelegramLink === 'function') {
       // Формируем текст для отправки
       let shareText = `Совместимость: ${percentage}%\n`;
@@ -32,6 +36,7 @@ const ResultPage = () => {
       const encodedText = encodeURIComponent(shareText);
       const tgUrl = `https://t.me/share/url?url=&text=${encodedText}`;
       window.Telegram.WebApp.openTelegramLink(tgUrl);
+      setTimeout(() => setShareDisabled(false), 2000); // разблокируем через 2 сек
     } else {
       // Fallback: просто копировать текст в буфер обмена
       let shareText = `Совместимость: ${percentage}%\n`;
@@ -39,11 +44,15 @@ const ResultPage = () => {
       shareText += `\n${bottomText}\n\nПерейти к боту: https://t.me/loveconnectai_bot`;
       navigator.clipboard.writeText(shareText);
       alert('Текст результата скопирован! Вставьте его вручную в Telegram.');
+      setTimeout(() => setShareDisabled(false), 2000);
     }
   };
 
   const handleNewMatch = () => {
+    if (newMatchDisabled) return;
+    setNewMatchDisabled(true);
     navigate('/');
+    setTimeout(() => setNewMatchDisabled(false), 2000);
   };
 
   return (
@@ -119,16 +128,18 @@ const ResultPage = () => {
           <motion.button
             className="result-btn share"
             onClick={handleShare}
-            whileHover={{ scale: 1.06 }}
-            whileTap={{ scale: 0.96 }}
+            whileHover={{ scale: shareDisabled ? 1 : 1.06 }}
+            whileTap={{ scale: shareDisabled ? 1 : 0.96 }}
+            disabled={shareDisabled}
           >
             Поделиться результатом
           </motion.button>
           <motion.button
             className="result-btn new-match"
             onClick={handleNewMatch}
-            whileHover={{ scale: 1.06 }}
-            whileTap={{ scale: 0.96 }}
+            whileHover={{ scale: newMatchDisabled ? 1 : 1.06 }}
+            whileTap={{ scale: newMatchDisabled ? 1 : 0.96 }}
+            disabled={newMatchDisabled}
           >
             Проверить новый мэтч
           </motion.button>

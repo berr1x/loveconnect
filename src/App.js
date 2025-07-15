@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'r
 import { AnimatePresence } from 'framer-motion';
 import WelcomePage from './pages/WelcomePage';
 import MusicPage from './pages/MusicPage';
-import PartnerPage from './pages/PartnerPage';
 import LoadingPage from './pages/LoadingPage';
 import ResultPage from './pages/ResultPage';
 import PartnerMusicPage from './pages/PartnerMusicPage';
@@ -16,7 +15,6 @@ function AnimatedRoutes() {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<WelcomePage />} />
         <Route path="/music" element={<MusicPage />} />
-        <Route path="/partner" element={<PartnerPage />} />
         <Route path="/partner-music" element={<PartnerMusicPage />} />
         <Route path="/loading" element={<LoadingPage />} />
         <Route path="/result" element={<ResultPage />} />

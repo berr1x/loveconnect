@@ -68,7 +68,7 @@ const MusicPage = () => {
         const files = uploadedImages.map(img => img.file);
         const { sessionId } = await uploadMusic(files);
         localStorage.setItem('sessionId', sessionId);
-        navigate('/partner');
+        navigate('/partner-music'); // сразу на PartnerMusicPage
       } catch (e) {
         alert('Ошибка загрузки файлов: ' + e.message);
       }
