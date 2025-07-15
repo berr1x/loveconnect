@@ -1,5 +1,37 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
 .App {
-  text-align: center;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Убираем стандартные стили браузера */
+button {
+  font-family: inherit;
+}
+
+input {
+  font-family: inherit;
+}
+
+/* Мобильная оптимизация */
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
 }
 
 .App-logo {

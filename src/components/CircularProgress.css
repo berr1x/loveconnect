@@ -1,0 +1,33 @@
+.circular-progress-container {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circular-progress {
+  display: block;
+  width: 150px;
+  height: 150px;
+}
+
+.percentage-text {
+  position: absolute;
+
+  transform: translate(-50%, -50%);
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  color: #9D6BFF;
+  text-align: center;
+  line-height: 1;
+  width: 80px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+} 

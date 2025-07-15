@@ -1,0 +1,25 @@
+.loading-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #E6F3FF;
+}
+
+.loading-content {
+  text-align: center;
+}
+
+.loading-gif {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+}
+
+/* Мобильная адаптация */
+@media (max-width: 480px) {
+  .loading-gif {
+    width: 160px;
+    height: 160px;
+  }
+} 

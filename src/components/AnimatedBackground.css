@@ -1,0 +1,62 @@
+.animated-bg {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(48px);
+  opacity: 0.45;
+  mix-blend-mode: lighten;
+}
+
+.blob1 {
+  width: 340px;
+  height: 340px;
+  background: linear-gradient(135deg, #9D6BFF 60%, #E6F3FF 100%);
+  top: -80px;
+  left: -100px;
+}
+
+.blob2 {
+  width: 260px;
+  height: 260px;
+  background: linear-gradient(135deg, #FF6B9D 60%, #E6F3FF 100%);
+  bottom: -60px;
+  right: -80px;
+}
+
+.blob3 {
+  width: 180px;
+  height: 180px;
+  background: linear-gradient(135deg, #6BFFB8 60%, #E6F3FF 100%);
+  top: 60%;
+  left: 60%;
+}
+
+@media (max-width: 600px) {
+  .blob1 {
+    width: 180px;
+    height: 180px;
+    top: -40px;
+    left: -40px;
+  }
+  .blob2 {
+    width: 120px;
+    height: 120px;
+    bottom: -30px;
+    right: -30px;
+  }
+  .blob3 {
+    width: 90px;
+    height: 90px;
+    top: 65%;
+    left: 60%;
+  }
+} 
