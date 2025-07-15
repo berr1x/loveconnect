@@ -9,11 +9,14 @@ const LoadingPage = () => {
   const navigate = useNavigate();
   const [progress, setProgress] = useState(0);
   const [timer, setTimer] = useState(10); // 10 секунд ожидания по умолчанию
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     let interval;
-    let timeout;
-    let isFinished = false;
+    let startTime = Date.now();
+    let minDuration = 3000; // минимум 3 секунды для UX
+    let maxDuration = 20000; // максимум 20 секунд ожидания
+    let finished = false;
     const fetchResult = async () => {
       const sessionId = localStorage.getItem('sessionId');
       if (!sessionId) {
@@ -22,23 +25,26 @@ const LoadingPage = () => {
         return;
       }
       try {
-        timeout = setTimeout(() => {
-          if (!isFinished) setTimer(0);
-        }, 10000); // максимум 10 секунд
+        setIsLoading(true);
+        setProgress(0);
+        setTimer(10);
         interval = setInterval(() => {
-          setProgress(prev => (prev < 100 ? prev + 1 : 100));
-          setTimer(prev => (prev > 0 ? prev - 1 : 0));
-        }, 100);
+          setProgress(prev => (prev < 98 ? prev + 1 : 98));
+        }, maxDuration / 100);
         const result = await getResult(sessionId);
-        isFinished = true;
-        clearInterval(interval);
-        clearTimeout(timeout);
-        localStorage.setItem('compatibilityResult', JSON.stringify(result));
-        navigate('/result');
+        finished = true;
+        const elapsed = Date.now() - startTime;
+        const wait = Math.max(minDuration - elapsed, 0);
+        setTimeout(() => {
+          setProgress(100);
+          setIsLoading(false);
+          localStorage.setItem('compatibilityResult', JSON.stringify(result));
+          navigate('/result');
+        }, wait);
       } catch (e) {
-        isFinished = true;
+        finished = true;
+        setIsLoading(false);
         clearInterval(interval);
-        clearTimeout(timeout);
         alert('Ошибка получения результата: ' + e.message);
         navigate('/');
       }
@@ -46,7 +52,6 @@ const LoadingPage = () => {
     fetchResult();
     return () => {
       clearInterval(interval);
-      clearTimeout(timeout);
     };
   }, [navigate]);
 
@@ -57,7 +62,7 @@ const LoadingPage = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
     >
-      <div className="loading-content">
+      <div className="loading-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <motion.img
           src={heartGif}
           alt="Загрузка"
@@ -69,11 +74,11 @@ const LoadingPage = () => {
         <div style={{ marginTop: 24, fontSize: 18, color: '#9D6BFF', fontWeight: 500 }}>
           Анализируем совместимость.
         </div>
-        <div style={{ marginTop: 12, width: 180, height: 8, background: '#eee', borderRadius: 8, overflow: 'hidden' }}>
-          <div style={{ width: `${progress}%`, height: '100%', background: '#9D6BFF', transition: 'width 0.1s' }} />
+        <div style={{ marginTop: 12, width: 180, height: 8, background: '#eee', borderRadius: 8, overflow: 'hidden', display: 'flex', justifyContent: 'center' }}>
+          <div style={{ width: `${progress}%`, height: '100%', background: '#9D6BFF', transition: 'width 0.2s' }} />
         </div>
-        <div style={{ marginTop: 6, color: '#888', fontSize: 14 }}>
-          {timer > 0 ? `Осталось ~${timer} сек.` : 'Почти готово...'}
+        <div style={{ marginTop: 6, color: '#888', fontSize: 14, textAlign: 'center' }}>
+          {isLoading ? 'Пожалуйста, подождите...' : 'Почти готово...'}
         </div>
       </div>
     </motion.div>
