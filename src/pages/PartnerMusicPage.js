@@ -87,7 +87,7 @@ const PartnerMusicPage = () => {
         <div className="image-container">
           <motion.img
             src={musicImage}
-            alt="Музыка партнера"
+            alt="Музыка девушки"
             className="partner-music-image"
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -110,7 +110,7 @@ const PartnerMusicPage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.5 }}
         >
-          Загрузи скриншот плейлиста второго партнёра (Spotify, Яндекс.Музыка и т.д.)
+          Загрузи скриншот плейлиста девушки (Spotify, Яндекс.Музыка и т.д.)
         </motion.p>
 
         <motion.div

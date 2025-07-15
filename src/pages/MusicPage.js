@@ -100,7 +100,7 @@ const MusicPage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
         >
-          Твоя музыка
+          Музыка парня
         </motion.h1>
         
         <motion.p
@@ -109,7 +109,7 @@ const MusicPage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.5 }}
         >
-          Загрузи скриншот своего плейлиста (Spotify, Яндекс.Музыка и т.д.)
+          Загрузи скриншот плейлиста парня (Spotify, Яндекс.Музыка и т.д.)
         </motion.p>
 
         <motion.div

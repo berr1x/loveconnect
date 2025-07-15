@@ -23,7 +23,23 @@ const ResultPage = () => {
   const { percentage, matches, bottomText } = result;
 
   const handleShare = () => {
-    alert('Функция поделиться будет реализована позже!');
+    if (window.Telegram && window.Telegram.WebApp && typeof window.Telegram.WebApp.openTelegramLink === 'function') {
+      // Формируем текст для отправки
+      let shareText = `Совместимость: ${percentage}%\n`;
+      shareText += matches.map(m => `• ${m}`).join('\n');
+      shareText += `\n${bottomText}\n\nПерейти к боту: https://t.me/loveconnectai_bot`;
+      // Кодируем текст для передачи в Telegram
+      const encodedText = encodeURIComponent(shareText);
+      const tgUrl = `https://t.me/share/url?url=&text=${encodedText}`;
+      window.Telegram.WebApp.openTelegramLink(tgUrl);
+    } else {
+      // Fallback: просто копировать текст в буфер обмена
+      let shareText = `Совместимость: ${percentage}%\n`;
+      shareText += matches.map(m => `• ${m}`).join('\n');
+      shareText += `\n${bottomText}\n\nПерейти к боту: https://t.me/loveconnectai_bot`;
+      navigator.clipboard.writeText(shareText);
+      alert('Текст результата скопирован! Вставьте его вручную в Telegram.');
+    }
   };
 
   const handleNewMatch = () => {
