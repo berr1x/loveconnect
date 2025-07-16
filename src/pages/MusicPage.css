@@ -62,6 +62,10 @@
   transform: scale(1.02);
 }
 
+.upload-area .upload-button + .upload-button {
+  margin-top: 12px;
+}
+
 .file-input {
   display: none;
 }

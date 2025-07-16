@@ -151,7 +151,7 @@ const MusicPage = () => {
             </svg>
             Загрузить изображение
           </label>
-          <label htmlFor="files-input" className="upload-button" style={{ marginLeft: 8 }}>
+          <label htmlFor="files-input" className="upload-button">
             📁 Выбрать из Файлов
           </label>
         </motion.div>
